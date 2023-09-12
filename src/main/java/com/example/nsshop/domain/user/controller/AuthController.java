@@ -1,6 +1,15 @@
 package com.example.nsshop.domain.user.controller;
 
+import com.example.nsshop.domain.user.dao.RoleRepository;
 import com.example.nsshop.domain.user.dao.UserRepository;
+import com.example.nsshop.domain.user.domain.ERole;
+import com.example.nsshop.domain.user.domain.Role;
+import com.example.nsshop.domain.user.domain.User;
+import com.example.nsshop.domain.user.dto.JwtResponse;
+import com.example.nsshop.domain.user.dto.SignInRequest;
+import com.example.nsshop.domain.user.dto.SignUpRequest;
+import com.example.nsshop.domain.user.service.UserDetailsImpl;
+import com.example.nsshop.global.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +21,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
