@@ -13,10 +13,10 @@ import java.util.Date;
 @Component
 @Log4j2
 public class JwtUtil {
-    @Value("${fullstackbook.app.jwtSecret}")
+    @Value("${ns_shop.app.jwtSecret}")
     private String jwtSecret;
 
-    @Value("${fullstackbook.app.jwtExpirationMs}")
+    @Value("${ns_shop.app.jwtExpirationMs}")
     private int jwtExpirationMs;
 
     public String generateJwtToken(Authentication authentication) {
@@ -27,12 +27,12 @@ public class JwtUtil {
     }
 
     public String getUserNameFromJwtToken(String token) {
-        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
+        return Jwts.parserBuilder().setSigningKey(jwtSecret).build().parseClaimsJws(token).getBody().getSubject();
     }
 
     public boolean validateJwtToken(String authToken) {
         try {
-            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
+            Jwts.parserBuilder().setSigningKey(jwtSecret).build().parseClaimsJws(authToken);
             return true;
         } catch (SignatureException e) {
             log.error("Invalid JWT signature: {}", e.getMessage());
